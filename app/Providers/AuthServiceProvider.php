@@ -3,10 +3,12 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+use App\Models\Character;
 use App\Models\User;
 use App\Repository\Interfaces\UserRepositoryInterface;
 use App\Repository\UserRepository;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -22,6 +24,10 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+
+        Gate::define('update-character', function (User $user, Character $character) {
+            return $user->id === $character->user_id;
+        });
 
         $this->app->bind(UserRepository::class,function($app) {
             return new UserRepository(new User());

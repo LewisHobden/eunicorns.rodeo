@@ -22,6 +22,8 @@ Route::get("login",\App\Http\Controllers\DiscordRedirectController::class)->name
 Route::post("logout",[DiscordLoginController::class,"logout"])->name("logout");
 Route::get("/login/discord-callback", [DiscordLoginController::class,"authenticate"]);
 
-Route::resource("character",\App\Http\Controllers\CharacterController::class);
+Route::resource("character",\App\Http\Controllers\CharacterController::class)
+->only(['index', 'edit', 'update', 'create', 'store', 'destroy'])
+->middleware('auth');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

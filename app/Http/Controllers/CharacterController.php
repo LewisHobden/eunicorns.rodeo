@@ -53,7 +53,7 @@ class CharacterController extends Controller
      */
     public function show(Character $character)
     {
-        return view('character.show',$character);
+        return redirect(route("character.edit",$character));
     }
 
     /**
@@ -64,7 +64,7 @@ class CharacterController extends Controller
      */
     public function edit(Character $character)
     {
-        //
+        return view("character.edit",["character" => $character]);
     }
 
     /**
@@ -76,7 +76,15 @@ class CharacterController extends Controller
      */
     public function update(UpdateCharacterRequest $request, Character $character)
     {
-        //
+        $character->fill([
+            "in_game_name" => $request->get("in_game_name"),
+            "item_level" => $request->get("item_level"),
+        ])
+        ->save();
+
+        $request->session()->flash("status","Your character was updated successfully.");
+
+        return redirect(route("character.index"));
     }
 
     /**
