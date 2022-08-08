@@ -23,7 +23,9 @@ Route::post("logout",[DiscordLoginController::class,"logout"])->name("logout");
 Route::get("/login/discord-callback", [DiscordLoginController::class,"authenticate"]);
 
 Route::resource("character",\App\Http\Controllers\CharacterController::class)
-->only(['index', 'edit', 'update', 'create', 'store', 'destroy'])
+->except(['show'])
 ->middleware('auth');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::resource("event",\App\Http\Controllers\EventController::class)
+->middleware('guard:discord-admin')
+->middleware('auth');

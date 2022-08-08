@@ -13,7 +13,7 @@ class UpdateEventRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return $this->user()->can("discord-admin");
     }
 
     /**
@@ -24,7 +24,10 @@ class UpdateEventRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "scheduled_date" => "required|date|after:yesterday",
+            "event_title" => "required",
+            "item_level" => "nullable|numeric|min:0",
+            "player_limit" => "nullable|numeric|min:0",
         ];
     }
 }

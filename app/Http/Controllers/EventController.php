@@ -8,6 +8,9 @@ use App\Models\Event;
 
 class EventController extends Controller
 {
+    protected $middleware = [
+
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +18,10 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
+        return view(
+            "event.index",
+            ["open_events" => Event::query()->where("is_signup_open","=",true)->get()]
+        );
     }
 
     /**
@@ -25,7 +31,7 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        return view("event.create");
     }
 
     /**
@@ -36,7 +42,23 @@ class EventController extends Controller
      */
     public function store(StoreEventRequest $request)
     {
-        //
+        $event = new Event();
+
+        $event->fill([
+            'player_limit' => $request->get('player_limit'),
+            'scheduled_date' => $request->get('scheduled_date'),
+            'event_title' => $request->get('event_title'),
+            'is_signup_open' => true,
+            'item_level' => $request->get('item_level'),
+        ]);
+
+        $event->event_type = "vykas";
+
+        $event->save();
+
+        session()->flash("status","Successfully recorded a new event.");
+
+        return redirect(route('event.show',$event));
     }
 
     /**
@@ -47,7 +69,7 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        //
+        return view('event.show', ["event" => $event]);
     }
 
     /**
@@ -58,7 +80,7 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        //
+        return view('event.edit', ["event" => $event]);
     }
 
     /**
@@ -70,7 +92,23 @@ class EventController extends Controller
      */
     public function update(UpdateEventRequest $request, Event $event)
     {
-        //
+        $event = new Event();
+
+        $event->fill([
+            'player_limit' => $request->get('player_limit'),
+            'scheduled_date' => $request->get('scheduled_date'),
+            'event_title' => $request->get('event_title'),
+            'is_signup_open' => true,
+            'item_level' => $request->get('item_level'),
+        ]);
+
+        $event->event_type = "vykas";
+
+        $event->save();
+
+        session()->flash("status","Successfully edited this event.");
+
+        return redirect(route("event.show",$event));
     }
 
     /**

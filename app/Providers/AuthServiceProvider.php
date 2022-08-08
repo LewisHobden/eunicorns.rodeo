@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+use App\Enum\DiscordPermissionEnum;
 use App\Models\Character;
 use App\Models\User;
 use App\Repository\Interfaces\UserRepositoryInterface;
@@ -27,6 +28,12 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('update-character', function (User $user, Character $character) {
             return $user->id === $character->user_id;
+        });
+
+        Gate::define('discord-admin', function (User $user) {
+            $perms = $user->discord_permissions;
+
+            return $perms & DiscordPermissionEnum::MANAGE_WEBHOOKS->value;
         });
 
         $this->app->bind(UserRepository::class,function($app) {
