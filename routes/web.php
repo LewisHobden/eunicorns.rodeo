@@ -27,5 +27,4 @@ Route::resource("character",\App\Http\Controllers\CharacterController::class)
 ->middleware('auth');
 
 Route::resource("event",\App\Http\Controllers\EventController::class)
-->middleware('guard:discord-admin')
-->middleware('auth');
+->middleware('can:manage-discord');

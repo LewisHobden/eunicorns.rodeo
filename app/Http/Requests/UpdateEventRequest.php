@@ -13,7 +13,7 @@ class UpdateEventRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->can("discord-admin");
+        return $this->user()->can("manage-discord");
     }
 
     /**

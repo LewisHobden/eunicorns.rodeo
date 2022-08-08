@@ -30,10 +30,10 @@ class AuthServiceProvider extends ServiceProvider
             return $user->id === $character->user_id;
         });
 
-        Gate::define('discord-admin', function (User $user) {
+        Gate::define('manage-discord', function (User $user) {
             $perms = $user->discord_permissions;
 
-            return $perms & DiscordPermissionEnum::MANAGE_WEBHOOKS->value;
+            return (bool)($perms & DiscordPermissionEnum::MANAGE_WEBHOOKS->value);
         });
 
         $this->app->bind(UserRepository::class,function($app) {

@@ -30,7 +30,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-                        @if(\Illuminate\Support\Facades\Gate::allows("discord-admin"))
+                        @if(\Illuminate\Support\Facades\Gate::allows("manage-discord"))
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('event.index') }}">
                                     {{ __('Admin') }}
