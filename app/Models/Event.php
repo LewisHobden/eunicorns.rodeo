@@ -17,7 +17,8 @@ class Event extends Model
       "item_level",
     ];
 
-    protected $casts = [
-        "scheduled_date" => "date"
-    ];
+    public function occurrences()
+    {
+        return $this->hasMany(EventOccurrence::class);
+    }
 }

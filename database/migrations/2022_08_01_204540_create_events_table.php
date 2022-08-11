@@ -29,5 +29,9 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('events');
+
+        Schema::create('events', function (Blueprint $table) {
+            $table->date("scheduled_date");
+        });
     }
 };

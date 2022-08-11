@@ -19,7 +19,7 @@ class EventController extends Controller
     public function index()
     {
         return view(
-            "event.index",
+            "events.index",
             ["open_events" => Event::query()->where("is_signup_open","=",true)->get()]
         );
     }
@@ -31,7 +31,7 @@ class EventController extends Controller
      */
     public function create()
     {
-        return view("event.create");
+        return view("events.create");
     }
 
     /**
@@ -56,9 +56,9 @@ class EventController extends Controller
 
         $event->save();
 
-        session()->flash("status","Successfully recorded a new event.");
+        session()->flash("status","Successfully recorded a new events.");
 
-        return redirect(route('event.show',$event));
+        return redirect(route('events.show',$event));
     }
 
     /**
@@ -69,7 +69,7 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        return view('event.show', ["event" => $event]);
+        return view('events.show', ["event" => $event]);
     }
 
     /**
@@ -80,7 +80,7 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        return view('event.edit', ["event" => $event]);
+        return view('events.edit', ["event" => $event]);
     }
 
     /**
@@ -106,9 +106,9 @@ class EventController extends Controller
 
         $event->save();
 
-        session()->flash("status","Successfully edited this event.");
+        session()->flash("status","Successfully edited this events.");
 
-        return redirect(route("event.show",$event));
+        return redirect(route("events.show",$event));
     }
 
     /**

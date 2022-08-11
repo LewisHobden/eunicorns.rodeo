@@ -17,7 +17,7 @@ class CharacterController extends Controller
      */
     public function index()
     {
-        return view('character.index',["characters" => Character::whereUserId(Auth::id())->get()]);
+        return view('characters.index',["characters" => Character::whereUserId(Auth::id())->get()]);
     }
 
     /**
@@ -29,7 +29,7 @@ class CharacterController extends Controller
     {
         //
 
-        return view('character.create');
+        return view('characters.create');
     }
 
     /**
@@ -42,7 +42,7 @@ class CharacterController extends Controller
     {
         $char = Character::fromRequest($request);
 
-        return response(["character" => $char]);
+        return response(["characters" => $char]);
     }
 
     /**
@@ -53,7 +53,7 @@ class CharacterController extends Controller
      */
     public function show(Character $character)
     {
-        return redirect(route("character.edit",$character));
+        return redirect(route("characters.edit",$character));
     }
 
     /**
@@ -64,7 +64,7 @@ class CharacterController extends Controller
      */
     public function edit(Character $character)
     {
-        return view("character.edit",["character" => $character]);
+        return view("characters.edit",["characters" => $character]);
     }
 
     /**
@@ -82,9 +82,9 @@ class CharacterController extends Controller
         ])
         ->save();
 
-        $request->session()->flash("status","Your character was updated successfully.");
+        $request->session()->flash("status","Your characters was updated successfully.");
 
-        return redirect(route("character.index"));
+        return redirect(route("characters.index"));
     }
 
     /**

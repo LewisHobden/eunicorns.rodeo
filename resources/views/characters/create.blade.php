@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">{{ __('New Character') }}</div>
                         <div class="card-body">
-                            <form method="POST" action="{{ route("character.store") }}">
+                            <form method="POST" action="{{ route("characters.store") }}">
                                 @csrf
 
                                 <div class="form-group">

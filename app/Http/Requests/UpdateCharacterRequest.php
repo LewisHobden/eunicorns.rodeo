@@ -14,9 +14,9 @@ class UpdateCharacterRequest extends FormRequest
      */
     public function authorize()
     {
-        $character = $this->route('character');
+        $character = $this->route('characters');
 
-        return $character && $this->user()->can('update-character', $character);
+        return $character && $this->user()->can('update-characters', $character);
     }
 
     /**

@@ -22,9 +22,12 @@ Route::get("login",\App\Http\Controllers\DiscordRedirectController::class)->name
 Route::post("logout",[DiscordLoginController::class,"logout"])->name("logout");
 Route::get("/login/discord-callback", [DiscordLoginController::class,"authenticate"]);
 
-Route::resource("character",\App\Http\Controllers\CharacterController::class)
+Route::resource("characters",\App\Http\Controllers\CharacterController::class)
 ->except(['show'])
 ->middleware('auth');
 
-Route::resource("event",\App\Http\Controllers\EventController::class)
+Route::resource("events",\App\Http\Controllers\EventController::class)
+->middleware('can:manage-discord');
+
+Route::resource("events.occurrences",\App\Http\Controllers\EventOccurrenceController::class)
 ->middleware('can:manage-discord');

@@ -32,7 +32,7 @@
                     <ul class="navbar-nav me-auto">
                         @if(\Illuminate\Support\Facades\Gate::allows("manage-discord"))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('event.index') }}">
+                                <a class="nav-link" href="{{ route('events.index') }}">
                                     {{ __('Admin') }}
                                 </a>
                             </li>
@@ -63,12 +63,12 @@
 
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('character.index') }}">
+                                    <a class="dropdown-item" href="{{ route('characters.index') }}">
                                         {{ __('Characters') }}
                                     </a>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
+                                       onclick="events.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>

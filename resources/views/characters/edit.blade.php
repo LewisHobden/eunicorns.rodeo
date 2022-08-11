@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">{{ __('New Character') }}</div>
                         <div class="card-body">
-                            <form method="POST" action="{{ route("character.update", $character) }}">
+                            <form method="POST" action="{{ route("characters.update", $character) }}">
                                 @method('PUT')
                                 @csrf
 

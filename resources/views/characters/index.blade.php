@@ -14,16 +14,16 @@
                             @endif
 
                             <div class="p-1">
-                                <p><a class="btn btn-primary" href="{{ route("character.create") }}">New Character</a></p>
+                                <p><a class="btn btn-primary" href="{{ route("characters.create") }}">New Character</a></p>
                             </div>
                             @if(empty($characters) || count($characters) === 0)
                                 You have no characters recorded.
-                                <a href="{{ route("character.create") }}">Click here to add one</a>
+                                <a href="{{ route("characters.create") }}">Click here to add one</a>
                             @else
                                 <div class="list-group">
                                     @foreach ($characters as $character)
                                         <div>
-                                            <a href="{{ route('character.edit', $character) }}"
+                                            <a href="{{ route('characters.edit', $character) }}"
                                                class="list-group-item list-group-item-action">
                                                 {{ $character->in_game_name}}
                                             </a>
