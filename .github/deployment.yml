@@ -1,0 +1,43 @@
+name: Deployment
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install composer dependencies
+        run: composer install --no-scripts
+
+      - name: Prepare Laravel Application
+        run: |
+          echo "${{ secrets.APP_ENV }}" > .env
+          php artisan key:generate
+      - name: Install front-end dependencies
+        run: |
+          npm install
+          npm run production
+      - name: Directory Permissions
+        run: chmod -R 777 storage bootstrap/cache
+
+      - name: Add version number to config
+          run: sed -i 's/{{APP_VERSION}}/${{ github.event.release.tag_name }}/' .env
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_TOKEN }}
+
+      - name: Save Container Registry Config
+        run: doctl registry login
+
+      - name: Build Docker Container
+        run: docker build . -t registry.digitalocean.com/lewis/eunicorns.rodeo
+
+      - name: Push Container
+        run: docker push registry.digitalocean.com/lewis/eunicorns.rodeo
