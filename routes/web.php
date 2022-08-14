@@ -34,5 +34,4 @@ Route::resource("events",\App\Http\Controllers\EventController::class)
 Route::resource("events.occurrences",\App\Http\Controllers\EventOccurrenceController::class)
     ->middleware('can:manage-discord');
 
-Route::post("events/occurrences/{id}/register", [\App\Http\Controllers\EventOccurrenceController::class,"signup"])
-    ->middleware('auth');
+Route::post("/events/occurrences/{id}/register", [\App\Http\Controllers\EventOccurrenceController::class,"signup"]);
