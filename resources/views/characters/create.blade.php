@@ -34,7 +34,7 @@
                                             <option
                                                 @if (old('class') === $class_enum->value) selected @endif
                                                 value="{{ $class_enum->value }}">
-                                                {{ $class_enum->name }}
+                                                {{ $class_enum->toFriendly()}}
                                             </option>
                                         @endforeach
                                     </select>

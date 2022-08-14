@@ -46,15 +46,24 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function characters()
+    {
+        return $this->hasMany(Character::class);
+    }
+
     public function getProfileAttribute() : Profile
     {
         return Profile::fromJson(json_decode($this->discord_profile,true));
     }
 
-    public static function getLoggedIn()
+    public function isSignedUp(EventOccurrence $occurrence) : bool
     {
-        $user_id = Auth::id();
-
-        return self::query()->whereId($user_id)->first();
+        return $this->signups()->where("event_occurrence_id","=",$occurrence->id)->get()->count() !== 0;
     }
+
+    public function signups()
+    {
+        return $this->hasMany(EventSignup::class);
+    }
+
 }

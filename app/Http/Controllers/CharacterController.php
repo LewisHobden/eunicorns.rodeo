@@ -17,7 +17,10 @@ class CharacterController extends Controller
      */
     public function index()
     {
-        return view('characters.index',["characters" => Character::whereUserId(Auth::id())->get()]);
+        return view('characters.index',[
+                "characters" => Character::whereUserId(Auth::id())->orderBy("in_game_name", "ASC")->get()
+            ]
+        );
     }
 
     /**
@@ -27,8 +30,6 @@ class CharacterController extends Controller
      */
     public function create()
     {
-        //
-
         return view('characters.create');
     }
 
@@ -42,7 +43,9 @@ class CharacterController extends Controller
     {
         $char = Character::fromRequest($request);
 
-        return response(["characters" => $char]);
+        $request->session()->flash("status","Your character was added successfully.");
+
+        return redirect(route("characters.index"));
     }
 
     /**
@@ -64,7 +67,7 @@ class CharacterController extends Controller
      */
     public function edit(Character $character)
     {
-        return view("characters.edit",["characters" => $character]);
+        return view("characters.edit",["character" => $character]);
     }
 
     /**

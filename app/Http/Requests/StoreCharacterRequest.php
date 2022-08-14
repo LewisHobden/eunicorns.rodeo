@@ -27,7 +27,7 @@ class StoreCharacterRequest extends FormRequest
     {
         return [
             "in_game_name" => "required|unique:characters|max:255",
-            "item_level" => "required|numeric|min:1370",
+            "item_level" => "required|numeric|min:50",
             "class" => ["required", new Enum(CharacterClassEnum::class)]
         ];
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use League\OAuth2\Client\Token\AccessTokenInterface;
 use Wohali\OAuth2\Client\Provider\Discord;
 
@@ -33,6 +34,7 @@ class GuildPermissionController extends Controller
         $request = $this->provider->getAuthenticatedRequest("GET",$endpoint,$this->access_token);
 
         $response = $this->client->send($request);
+
         $guilds = json_decode((string)$response->getBody());
 
         foreach($guilds as $guild) {

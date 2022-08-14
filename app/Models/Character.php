@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enum\CharacterClassEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,6 +15,10 @@ class Character extends Model
         "in_game_name",
         "class",
         "item_level",
+    ];
+
+    protected $casts = [
+        "class" => CharacterClassEnum::class
     ];
 
     public static function fromRequest(\App\Http\Requests\StoreCharacterRequest $request) : Character

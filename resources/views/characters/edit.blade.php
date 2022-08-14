@@ -5,24 +5,11 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('New Character') }}</div>
+                    <div class="card-header">{{ __('Edit Character') }}</div>
                         <div class="card-body">
                             <form method="POST" action="{{ route("characters.update", $character) }}">
                                 @method('PUT')
                                 @csrf
-
-                                <div class="form-group">
-                                    <label for="in_game_name">In Game Name</label>
-                                    <input id="in_game_name"
-                                           name="in_game_name"
-                                           type="text"
-                                           value=" {{ $character->in_game_name }}"
-                                           class="form-control @error('in_game_name') is-invalid @enderror" />
-
-                                    @error('in_game_name')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
 
                                 <div class="form-group">
                                     <label for="item_level">Item Level</label>

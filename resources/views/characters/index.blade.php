@@ -15,25 +15,66 @@
 
                             <div class="p-1">
                                 <p><a class="btn btn-primary" href="{{ route("characters.create") }}">New Character</a></p>
+                                <p>Click a character to edit their details.</p>
                             </div>
                             @if(empty($characters) || count($characters) === 0)
                                 You have no characters recorded.
                                 <a href="{{ route("characters.create") }}">Click here to add one</a>
                             @else
-                                <div class="list-group">
+                                <ul class="list-group">
                                     @foreach ($characters as $character)
-                                        <div>
-                                            <a href="{{ route('characters.edit', $character) }}"
-                                               class="list-group-item list-group-item-action">
-                                                {{ $character->in_game_name}}
-                                            </a>
-                                        </div>
+                                        <a class="list-group-item list-group-item-dark list-group-item-action character"
+                                           href="{{ route('characters.edit', $character) }}">
+                                            <x-class-icon :class="$character->class" />
+                                            <p class="character-name">{{ $character->in_game_name}}</p>
+                                            <p class="character-summary">{{ $character->item_level }} {{ $character->class->toFriendly() }}</p>
+                                        </a>
                                     @endforeach
-                                </div>
+                                </ul>
                             @endif
                         </div>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+<style>
+    .character {
+        display: grid;
+        grid-template-columns: 20% 40% 40%;
+    }
+
+    .character-name {
+        font-size: 1.2em;
+        font-weight: bold;
+        padding: 5px;
+    }
+
+    .character-summary {
+        text-align: right;
+        font-size: 0.9em;
+    }
+
+    @media(max-height: 480px) {
+        .character-summary {
+            display: none;
+        }
+
+        .character {
+            display: grid;
+            grid-template-columns: 30% 70%;
+        }
+    }
+
+    .class-icon__container {
+        max-height: 50px;
+    }
+
+    .class-icon {
+        height: 100%;
+        width: auto;
+    }
+</style>
 @endsection

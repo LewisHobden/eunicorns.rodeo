@@ -46,17 +46,15 @@ class EventController extends Controller
 
         $event->fill([
             'player_limit' => $request->get('player_limit'),
-            'scheduled_date' => $request->get('scheduled_date'),
             'event_title' => $request->get('event_title'),
+            'event_type' => $request->get('event_type'),
             'is_signup_open' => true,
             'item_level' => $request->get('item_level'),
         ]);
 
-        $event->event_type = "vykas";
-
         $event->save();
 
-        session()->flash("status","Successfully recorded a new events.");
+        session()->flash("status","Successfully recorded a new event.");
 
         return redirect(route('events.show',$event));
     }
@@ -98,11 +96,10 @@ class EventController extends Controller
             'player_limit' => $request->get('player_limit'),
             'scheduled_date' => $request->get('scheduled_date'),
             'event_title' => $request->get('event_title'),
+            'event_type' => $request->get('event_type'),
             'is_signup_open' => true,
             'item_level' => $request->get('item_level'),
         ]);
-
-        $event->event_type = "vykas";
 
         $event->save();
 

@@ -14,7 +14,7 @@ class UpdateCharacterRequest extends FormRequest
      */
     public function authorize()
     {
-        $character = $this->route('characters');
+        $character = $this->route('character');
 
         return $character && $this->user()->can('update-characters', $character);
     }
@@ -27,7 +27,7 @@ class UpdateCharacterRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "item_level" => "required|numeric|min:50",
         ];
     }
 }

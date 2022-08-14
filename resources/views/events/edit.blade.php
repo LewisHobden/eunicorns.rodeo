@@ -16,6 +16,27 @@
                                 <x-forms.input value="{{ $event->player_limit }}" property="player_limit" type="number" label="Player Limit" />
 
                                 <div class="form-group">
+                                    <label for="event_type">Event Type</label>
+                                    <select id="event_type"
+                                            name="event_type"
+                                            class="form-control @error('event_type') is-invalid @enderror">
+                                        <option value="">-- Select --</option>
+
+                                        @foreach(\App\Enum\EventTypeEnum::cases() as $event_type_enum)
+                                            <option
+                                                @if ($event->event_type->value === $event_type_enum->value) selected @endif
+                                            value="{{ $event_type_enum->value }}">
+                                                {{ $event_type_enum->toFriendly() }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+
+                                    @error('event_type')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
                             </form>

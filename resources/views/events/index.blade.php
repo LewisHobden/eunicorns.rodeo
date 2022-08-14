@@ -8,10 +8,8 @@
                     <div class="card-header">{{ __('Open Events') }}</div>
                     <div class="card-body">
                         <x-session-success />
+                        <p><a class="btn btn-primary" href="{{ route("events.create") }}">New Event</a></p>
 
-                        <div class="p-1">
-                            <p><a class="btn btn-primary" href="{{ route("events.create") }}">New Event</a></p>
-                        </div>
                         @if(empty($open_events) || count($open_events) === 0)
                             No events currently open for signups.
                             <a href="{{ route("events.create") }}">Click here to add one</a>
@@ -39,6 +37,7 @@
                                     </tr>
                                 @endforeach
                                 </tbody>
+                            </table>
                             </div>
                         @endif
                     </div>

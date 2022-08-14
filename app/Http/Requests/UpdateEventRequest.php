@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Enum\CharacterClassEnum;
+use App\Enum\EventTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Enum;
 
 class UpdateEventRequest extends FormRequest
 {
@@ -24,8 +27,8 @@ class UpdateEventRequest extends FormRequest
     public function rules()
     {
         return [
-            "scheduled_date" => "required|date|after:yesterday",
             "event_title" => "required",
+            "event_type" => ["required", new Enum(EventTypeEnum::class)],
             "item_level" => "nullable|numeric|min:0",
             "player_limit" => "nullable|numeric|min:0",
         ];
