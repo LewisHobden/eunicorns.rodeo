@@ -28,10 +28,18 @@ Route::resource("characters",\App\Http\Controllers\CharacterController::class)
     ->except(['show'])
     ->middleware('auth');
 
+Route::resource("occurrences.groups",\App\Http\Controllers\EventGroupController::class)
+//    ->except(['show'])
+    ->middleware('auth');
+
 Route::resource("events",\App\Http\Controllers\EventController::class)
     ->middleware('can:manage-discord');
 
 Route::resource("events.occurrences",\App\Http\Controllers\EventOccurrenceController::class)
     ->middleware('can:manage-discord');
 
-Route::post("/events/occurrences/{id}/register", [\App\Http\Controllers\EventOccurrenceController::class,"signup"]);
+Route::post("/events/occurrences/{id}/register", [\App\Http\Controllers\EventOccurrenceController::class,"signup"])
+    ->middleware('auth');
+
+Route::post("/events/occurrences/{occurrence}/assign", [\App\Http\Controllers\EventGroupController::class,"assign"])
+    ->middleware('auth');

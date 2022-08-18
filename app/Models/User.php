@@ -51,14 +51,25 @@ class User extends Authenticatable
         return $this->hasMany(Character::class);
     }
 
-    public function getProfileAttribute() : Profile
+    public function charactersNotInEvent(EventOccurrence $occurrence)
     {
-        return Profile::fromJson(json_decode($this->discord_profile,true));
+        $groups = EventGroup::query()->select(['id'])->where("event_occurrence_id", "=", $occurrence->id);
+        $members = EventGroupMember::query()->select(['character_id'])->whereIn("event_group_id", $groups);
+
+        return Character::query()
+            ->where("user_id", "=", $this->id)
+            ->whereNotIn('id', $members)
+            ->get();
     }
 
-    public function isSignedUp(EventOccurrence $occurrence) : bool
+    public function getProfileAttribute(): Profile
     {
-        return $this->signups()->where("event_occurrence_id","=",$occurrence->id)->get()->count() !== 0;
+        return Profile::fromJson(json_decode($this->discord_profile, true));
+    }
+
+    public function isSignedUp(EventOccurrence $occurrence): bool
+    {
+        return $this->signups()->where("event_occurrence_id", "=", $occurrence->id)->get()->count() !== 0;
     }
 
     public function signups()

@@ -16,7 +16,9 @@ import { createApp } from 'vue';
 const app = createApp({});
 
 import SignupComponent from './components/SignupComponent.vue';
+import CharacterList from './components/CharacterList.vue';
 app.component('signup-component', SignupComponent);
+app.component('character-list', CharacterList);
 
 /**
  * The following block of code may be used to automatically register your

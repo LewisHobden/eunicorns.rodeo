@@ -34,7 +34,7 @@
                         <div class="card">
                             <div class="card-header">{{ $occurrence->scheduled_datetime->toRfc850String() }}</div>
                             <div class="card-body">
-                                There have been {{ count($occurrence->signups) }} signup(s) to this occurrence.
+                                {{ count($occurrence->signups) }} signup(s) to this occurrence.
                             </div>
                             @if(count($occurrence->signups) !== 0)
                             <ul class="list-group">
@@ -46,6 +46,11 @@
                                 @endforeach
                             </ul>
                          @endif
+                            <div class="card-body">
+                                <a href="{{ route('occurrences.groups.index', $occurrence) }}" class="card-link">
+                                    Manage Raid Groups
+                                </a>
+                            </div>
                         </div>
                     @endforeach
                     </div>
