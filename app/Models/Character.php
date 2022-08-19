@@ -21,6 +21,11 @@ class Character extends Model
         "class" => CharacterClassEnum::class
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public static function fromRequest(\App\Http\Requests\StoreCharacterRequest $request) : Character
     {
         $new = new self();

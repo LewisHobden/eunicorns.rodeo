@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="content">
                 <div class="card">
                     <div class="card-header">New Occurrence for Event: {{ $event->event_title }}</div>
                     <div class="card-body">

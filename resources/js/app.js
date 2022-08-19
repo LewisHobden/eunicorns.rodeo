@@ -15,11 +15,6 @@ import { createApp } from 'vue';
 
 const app = createApp({});
 
-import SignupComponent from './components/SignupComponent.vue';
-import CharacterList from './components/CharacterList.vue';
-app.component('signup-component', SignupComponent);
-app.component('character-list', CharacterList);
-
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -28,9 +23,9 @@ app.component('character-list', CharacterList);
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-// Object.entries(import.meta.globEager('./**/*.vue')).forEach(([path, definition]) => {
-//     app.component(path.split('/').pop().replace(/\.\w+$/, ''), definition.default);
-// });
+Object.entries(import.meta.globEager('./**/*.vue')).forEach(([path, definition]) => {
+    app.component(path.split('/').pop().replace(/\.\w+$/, ''), definition.default);
+});
 
 /**
  * Finally, we will attach the application instance to a HTML element with

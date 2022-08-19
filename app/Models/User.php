@@ -62,6 +62,19 @@ class User extends Authenticatable
             ->get();
     }
 
+    public function getCharactersOccupied(EventOccurrence $occurrence, string $character_id)
+    {
+        $occurrences = EventOccurrence::select(['id'])->where('scheduled_datetime','=',$occurrence->scheduled_datetime);
+        $groups = EventGroup::select(['id'])->whereIn('event_occurrence_id',$occurrences);
+        $members = EventGroupMember::select(['character_id'])->whereIn('event_group_id',$groups);
+
+        return Character::query()
+            ->where("user_id", "=", $this->id)
+            ->whereNot("id","=",$character_id)
+            ->whereIn('id', $members)
+            ->get();
+    }
+
     public function getProfileAttribute(): Profile
     {
         return Profile::fromJson(json_decode($this->discord_profile, true));

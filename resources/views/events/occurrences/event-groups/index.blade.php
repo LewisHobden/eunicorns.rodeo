@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="content">
                 <div class="card">
                     <div class="card-header">{{ __('Raid Groups') }}</div>
                     <div class="card-body">
@@ -11,12 +11,13 @@
                         <p><a class="btn btn-primary" href="{{ route("occurrences.groups.create", $occurrence) }}">New
                                 Group</a></p>
 
-                            <character-list :occurrence-id="{{ $occurrence->id }}"
-                                            :groups="{{ json_encode($groups) }}"
-                                            :signups="{{ json_encode($players) }}"/>
 
                     </div>
                 </div>
+                <hr />
+                <character-list :occurrence-id="{{ $occurrence->id }}"
+                                :groups="{{ json_encode($groups) }}"
+                                :signups="{{ json_encode($players) }}"/>
             </div>
         </div>
     </div>

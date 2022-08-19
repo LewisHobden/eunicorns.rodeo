@@ -15,6 +15,7 @@ class EventGroupController extends Controller
 {
     public function assign(Request $request, EventOccurrence $occurrence)
     {
+        $groups = EventGroup::query()->where("event_occurrence_id", "=", $occurrence->id)->get();
         $allocated_groups = $request->get("groups");
 
         foreach ($allocated_groups as $group) {
@@ -31,7 +32,25 @@ class EventGroupController extends Controller
             }
         }
 
-        return response()->json(["success" => true]);
+        return response()->json([
+            "groups" => $groups->map(
+                fn(EventGroup $group) => [
+                    "group" => ["group_name" => $group->group_name, "group_id" => $group->id],
+                    "signups" => null === $group->members ? null : $group->members->map(
+                        fn(EventGroupMember $member) => SignupModel::fromCharacter($member->character,$occurrence)
+                    ),
+                ]
+            ),
+            "players" => $occurrence->signups->map(
+                fn(EventSignup $signup) => [
+                    "user" => ["name" => $signup->user->name],
+                    "characters" => SignupModel::fromCharacters(
+                        $signup->user->charactersNotInEvent($occurrence),
+                        $occurrence
+                    ),
+                ]
+            ),
+        ]);
     }
 
     public function index(EventOccurrence $occurrence)
@@ -45,7 +64,7 @@ class EventGroupController extends Controller
                 fn(EventGroup $group) => [
                     "group" => ["group_name" => $group->group_name, "group_id" => $group->id],
                     "signups" => null === $group->members ? null : $group->members->map(
-                        fn(EventGroupMember $member) => SignupModel::fromCharacter($member->character)
+                        fn(EventGroupMember $member) => SignupModel::fromCharacter($member->character,$occurrence)
                     ),
                 ]
             ),
@@ -53,7 +72,8 @@ class EventGroupController extends Controller
                 fn(EventSignup $signup) => [
                     "user" => ["name" => $signup->user->name],
                     "characters" => SignupModel::fromCharacters(
-                        $signup->user->charactersNotInEvent($occurrence)
+                        $signup->user->charactersNotInEvent($occurrence),
+                        $occurrence
                     ),
                 ]
             ),
