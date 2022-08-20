@@ -19,9 +19,16 @@
         <div class="row justify-content-center">
             <div class="content">
                 <div class="card">
-
+                    <div class="card-header">{{ __('Welcome') }}</div>
+                    <div class="card-body">
+                        <p class="alert alert-primary">Welcome to the EUnicorns site. Right now you can only use this site to register for our guild events. More to come!</p>
+                        <p><a class="btn btn-primary" href="{{ route('characters.index') }}">View your Roster</a></p>
+                    </div>
+                </div>
+                <hr />
+                <div class="card">
                     <div class="card-header">{{ __('Upcoming Guild Events') }}</div>
-                    <div class="card-body d-grid g-2">
+                    <div class="card-body d-grid" style="grid-template-columns: 50% 50%">
                         @foreach($upcoming_events as $event)
                             <div class="card m-1">
                                 <img src="{{ asset('images/event-banners/'.$event->event_type->value.'.png') }}" class="card-img-top" alt="Event Banner">

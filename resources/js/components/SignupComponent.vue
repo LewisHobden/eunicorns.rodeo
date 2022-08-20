@@ -28,7 +28,7 @@ export default {
     methods: {
         onClicked: async function () {
             this.isLoading = true;
-            let response = await axios.post('/events/occurrences/' + this.occurrence.id + '/register/');
+            let response = await axios.post('/events/occurrences/' + this.occurrence.id + '/register');
 
             this.isLoading = false;
             this.isRegistered = response.data['is_signed_up'];
