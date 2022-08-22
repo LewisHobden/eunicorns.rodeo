@@ -6,3 +6,27 @@
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+.class-icon__container--default {
+    height: 50px;
+    width: 50px;
+}
+
+.class-icon__container--small {
+    height: 30px;
+    width: 30px;
+}
+
+.class-icon {
+    color: green;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.signup-action {
+    font-size: 1.2em;
+    margin: auto 0;
+    cursor: pointer;
+}
+

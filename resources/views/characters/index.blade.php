@@ -23,10 +23,10 @@
                             @else
                                 <ul class="list-group">
                                     @foreach ($characters as $character)
-                                        <a class="list-group-item list-group-item-dark list-group-item-action character"
+                                        <a class="list-group-item list-group-item-action character"
                                            href="{{ route('characters.edit', $character) }}">
-                                            <x-class-icon :class="$character->class" />
-                                            <p class="character-name">{{ $character->in_game_name}}</p>
+                                                <x-class-icon :class="$character->class" />
+                                                <p class="character-name">{{ $character->in_game_name}}</p>
                                             <p class="character-summary">{{ $character->item_level }} {{ $character->class->toFriendly() }}</p>
                                         </a>
                                     @endforeach

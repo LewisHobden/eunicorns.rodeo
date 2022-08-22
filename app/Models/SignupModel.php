@@ -45,6 +45,12 @@ class SignupModel implements \JsonSerializable
         return Character::query()->where("id","=",$this->character_id)->get()->first();
     }
 
+    private function getPosition()
+    {
+        if(!isset($this->occurrence))
+            return null;
+    }
+
     private function getWarnings()
     {
         $warnings = [];
@@ -70,8 +76,9 @@ class SignupModel implements \JsonSerializable
            "character_id" => $this->character_id,
            "class" => $this->class->toFriendly(),
            "item_level" => $this->item_level,
+           "position" => $this->getPosition(),
            "warnings" => $this->getWarnings(),
-           "class_icon" => asset("images/class-icons/{$this->class->value}.png")
+           "class_icon" => file_get_contents(public_path("images/class-icons/{$this->class->value}.svg"))
         ];
     }
 

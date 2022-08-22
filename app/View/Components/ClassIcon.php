@@ -8,15 +8,17 @@ use Illuminate\View\Component;
 class ClassIcon extends Component
 {
     private CharacterClassEnum $class;
+    private string $modifier;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(CharacterClassEnum $class)
+    public function __construct(CharacterClassEnum $class, string $modifier = "")
     {
         $this->class = $class;
+        $this->modifier = $modifier;
     }
 
     /**
@@ -27,7 +29,8 @@ class ClassIcon extends Component
     public function render()
     {
         return view('components.class-icon', [
-            "class" => $this->class
+            "class" => $this->class,
+            "modifier" => $this->modifier ?? "default"
         ]);
     }
 }

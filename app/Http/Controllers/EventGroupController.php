@@ -31,52 +31,15 @@ class EventGroupController extends Controller
                 $member->save();
             }
         }
-
-        return response()->json([
-            "groups" => $groups->map(
-                fn(EventGroup $group) => [
-                    "group" => ["group_name" => $group->group_name, "group_id" => $group->id],
-                    "signups" => null === $group->members ? null : $group->members->map(
-                        fn(EventGroupMember $member) => SignupModel::fromCharacter($member->character,$occurrence)
-                    ),
-                ]
-            ),
-            "players" => $occurrence->signups->map(
-                fn(EventSignup $signup) => [
-                    "user" => ["name" => $signup->user->name],
-                    "characters" => SignupModel::fromCharacters(
-                        $signup->user->charactersNotInEvent($occurrence),
-                        $occurrence
-                    ),
-                ]
-            ),
-        ]);
     }
 
     public function index(EventOccurrence $occurrence)
     {
-        $groups = EventGroup::query()->where("event_occurrence_id", "=", $occurrence->id)->get();
-
         return view('events.occurrences.event-groups.index', [
             "signups" => $occurrence->signups,
             "occurrence" => $occurrence,
-            "groups" => $groups->map(
-                fn(EventGroup $group) => [
-                    "group" => ["group_name" => $group->group_name, "group_id" => $group->id],
-                    "signups" => null === $group->members ? null : $group->members->map(
-                        fn(EventGroupMember $member) => SignupModel::fromCharacter($member->character,$occurrence)
-                    ),
-                ]
-            ),
-            "players" => $occurrence->signups->map(
-                fn(EventSignup $signup) => [
-                    "user" => ["name" => $signup->user->name],
-                    "characters" => SignupModel::fromCharacters(
-                        $signup->user->charactersNotInEvent($occurrence),
-                        $occurrence
-                    ),
-                ]
-            ),
+            "groups" => EventGroup::query()->where("event_occurrence_id", "=", $occurrence->id)->get(),
+            "players" => $occurrence->signups
         ]);
     }
 

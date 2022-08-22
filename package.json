@@ -17,6 +17,7 @@
         "vue": "^3.2.37"
     },
     "dependencies": {
+        "bootstrap-icons": "^1.9.1",
         "vuedraggable": "^4.1.0"
     }
 }
