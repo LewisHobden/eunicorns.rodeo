@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">{{ __('Open Events') }}</div>
                     <div class="card-body">
-                        <x-session-success />
+                        <x-session-message />
                         <p><a class="btn btn-primary" href="{{ route("events.create") }}">New Event</a></p>
 
                         @if(empty($open_events) || count($open_events) === 0)

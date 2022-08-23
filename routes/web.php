@@ -40,6 +40,3 @@ Route::resource("events.occurrences",\App\Http\Controllers\EventOccurrenceContro
 
 Route::post("/events/occurrences/{id}/register", [\App\Http\Controllers\EventOccurrenceController::class,"signup"])
     ->middleware('auth');
-
-Route::post("/events/occurrences/{occurrence}/assign", [\App\Http\Controllers\EventGroupController::class,"assign"])
-    ->middleware('auth');

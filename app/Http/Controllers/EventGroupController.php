@@ -13,26 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class EventGroupController extends Controller
 {
-    public function assign(Request $request, EventOccurrence $occurrence)
-    {
-        $groups = EventGroup::query()->where("event_occurrence_id", "=", $occurrence->id)->get();
-        $allocated_groups = $request->get("groups");
-
-        foreach ($allocated_groups as $group) {
-            // Assert all data is valid and correct. Bin the rest.
-            $event_group = EventGroup::query()->where("id","=",$group['group']['group_id'])->get()->first();
-            EventGroupMember::query()->where("event_group_id","=",$event_group->id)->delete();
-
-            foreach ($group['signups'] as $signup) {
-                $member = new EventGroupMember();
-                $member->event_group_id = $event_group->id;
-                $member->character_id = $signup['character_id'];
-
-                $member->save();
-            }
-        }
-    }
-
     public function index(EventOccurrence $occurrence)
     {
         return view('events.occurrences.event-groups.index', [

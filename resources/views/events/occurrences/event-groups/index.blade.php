@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">{{ __('Raid Groups') }}</div>
                     <div class="card-body">
-                        <x-session-success/>
+                        <x-session-message/>
                         <p><a class="btn btn-primary" href="{{ route("occurrences.groups.create", $occurrence) }}">New
                                 Group</a></p>
 

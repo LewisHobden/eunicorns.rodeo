@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class SessionSuccess extends Component
+class SessionMessage extends Component
 {
     /**
      * Create a new component instance.
@@ -23,6 +23,6 @@ class SessionSuccess extends Component
      */
     public function render()
     {
-        return view('components.session-success');
+        return view('components.session-message');
     }
 }

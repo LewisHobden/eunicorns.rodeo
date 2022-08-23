@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">{{ __('Event Details') }}</div>
                     <div class="card-body">
-                        <x-session-success />
+                        <x-session-message />
 
                         <dl>
                             <dt>Event Title</dt>

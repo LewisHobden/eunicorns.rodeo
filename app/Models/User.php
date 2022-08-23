@@ -62,17 +62,18 @@ class User extends Authenticatable
             ->get();
     }
 
-    public function getCharactersOccupied(EventOccurrence $occurrence, string $character_id)
+    public function getOccupiedCharacter(EventOccurrence $occurrence, ?string $ignore_character_id = null)
     {
         $occurrences = EventOccurrence::select(['id'])->where('scheduled_datetime','=',$occurrence->scheduled_datetime);
         $groups = EventGroup::select(['id'])->whereIn('event_occurrence_id',$occurrences);
         $members = EventGroupMember::select(['character_id'])->whereIn('event_group_id',$groups);
 
-        return Character::query()
-            ->where("user_id", "=", $this->id)
-            ->whereNot("id","=",$character_id)
-            ->whereIn('id', $members)
-            ->get();
+        $q = Character::query()->where("user_id", "=", $this->id);
+
+        if($ignore_character_id)
+            $q->whereNot("id","=",$ignore_character_id);
+
+        return $q->whereIn('id', $members)->get()->first();
     }
 
     public function getProfileAttribute(): Profile

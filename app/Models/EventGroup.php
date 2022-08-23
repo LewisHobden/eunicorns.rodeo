@@ -14,6 +14,11 @@ class EventGroup extends Model
         return $this->hasMany(EventGroupMember::class);
     }
 
+    public function occurrence()
+    {
+        return $this->belongsTo(EventOccurrence::class,'event_occurrence_id');
+    }
+
     public function slots()
     {
         $ret = [];
