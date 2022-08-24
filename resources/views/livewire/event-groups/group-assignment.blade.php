@@ -22,6 +22,14 @@
 
         toast.show();
     </script>
+    @elseif($existing_group)
+        <div class="signup-action" type="button">
+            <a wire:click="remove({{ $existing_group->id }})">
+                <i class="bi bi-calendar2-x"></i>
+            </a>
+        </div>
+    @elseif($character->user->isOccupied($occurrence))
+        <div></div>
     @else
     <div class="signup-action" type="button" data-bs-toggle="dropdown" aria-expanded="false">
         <i class="bi bi-plus-circle"></i>

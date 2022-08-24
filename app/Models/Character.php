@@ -18,23 +18,43 @@ class Character extends Model
     ];
 
     protected $casts = [
-        "class" => CharacterClassEnum::class
+        "class" => CharacterClassEnum::class,
     ];
+
+    public function isInGroup(EventGroup $group): bool
+    {
+        return EventGroupMember::query()
+            ->select(['id'])
+            ->where('character_id', '=', $this->id)
+            ->where('event_group_id', '=', $group->id)
+            ->exists();
+    }
+
+    public function isOccupied(iterable $groups): bool
+    {
+        foreach ($groups as $group) {
+            if ($this->isInGroup($group)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public static function fromRequest(\App\Http\Requests\StoreCharacterRequest $request) : Character
+    public static function fromRequest(\App\Http\Requests\StoreCharacterRequest $request): Character
     {
         $new = new self();
 
         $new->fill([
-            "user_id"      => $request->user()->id,
+            "user_id" => $request->user()->id,
             "in_game_name" => $request->get("in_game_name"),
-            "class"        => $request->get("class"),
-            "item_level"   => $request->get("item_level"),
+            "class" => $request->get("class"),
+            "item_level" => $request->get("item_level"),
         ]);
 
         $new->save();

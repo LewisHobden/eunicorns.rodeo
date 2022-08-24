@@ -5,21 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreEventGroupRequest;
 use App\Http\Requests\UpdateEventGroupRequest;
 use App\Models\EventGroup;
-use App\Models\EventGroupMember;
 use App\Models\EventOccurrence;
-use App\Models\EventSignup;
-use App\Models\SignupModel;
-use Symfony\Component\HttpFoundation\Request;
 
 class EventGroupController extends Controller
 {
     public function index(EventOccurrence $occurrence)
     {
         return view('events.occurrences.event-groups.index', [
-            "signups" => $occurrence->signups,
-            "occurrence" => $occurrence,
-            "groups" => EventGroup::query()->where("event_occurrence_id", "=", $occurrence->id)->get(),
-            "players" => $occurrence->signups
+            "occurrence" => $occurrence
         ]);
     }
 
