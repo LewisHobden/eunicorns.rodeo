@@ -38,7 +38,7 @@
     <ul class="dropdown-menu">
         @foreach($groups as $group)
             <li>
-                <a wire:click="signup({{ $group->id }})"
+                <a wire:click.prevent="signup({{ $group->id }})"
                    class="dropdown-item" href="#">{{ $group->group_name }}
                 </a>
             </li>

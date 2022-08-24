@@ -7,7 +7,9 @@
                 <ul class="list-group">
                     @foreach($group->slots() as $slot)
                         @if(null === $slot)
-                            <li class="list-group-item"></li>
+                            <li class="list-group-item">
+                                <span><i>Empty Slot</i></span>
+                            </li>
                         @else
                             <li class="list-group-item">
                                 <div class="d-flex justify-content-between">

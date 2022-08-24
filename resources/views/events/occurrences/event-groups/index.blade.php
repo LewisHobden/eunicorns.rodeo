@@ -11,7 +11,7 @@
                         <p><a class="btn btn-primary" href="{{ route("occurrences.groups.create", $occurrence) }}">New
                                 Group</a></p>
 
-
+                        <x-event-groups.group-detail :event="$occurrence->event" />
                     </div>
                 </div>
                 <hr />

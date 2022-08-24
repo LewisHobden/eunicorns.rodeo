@@ -7,6 +7,7 @@ use Livewire\Component;
 
 class PlayerList extends Component
 {
+    /** @var iterable<\App\Models\EventSignup> */
     public iterable        $players;
     public EventOccurrence $occurrence;
 

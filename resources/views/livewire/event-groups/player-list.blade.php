@@ -9,24 +9,35 @@
                         (occupied)
                     @endif
                 </div>
-                <ul class="list-group">
-                    @foreach($player->user->characters as $character)
-                        <li class="list-group-item">
-                            <div class="d-flex justify-content-between">
-                                <div class="d-flex gap-2">
-                                    <div class="m-auto">
-                                        <x-class-icon modifier="small" :class="$character->class"></x-class-icon>
+                <x-event-groups.player-signup-list :signup="$player" />
+                @if(0 === count($player->eligible_characters))
+                    <div class="card-body">
+                        {{ $player->user->name }} signed up but has no characters with the right ilvl.
+                    </div>
+                @else
+                    <ul class="list-group">
+                        @foreach($player->eligible_characters as $character)
+                            <li class="list-group-item">
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex gap-2">
+                                        <div class="m-auto">
+                                            <x-class-icon modifier="small" :class="$character->class"></x-class-icon>
+                                        </div>
+                                        <div>
+                                            <b>{{ $character->in_game_name }}</b><br/>
+                                            <span class="text-primary">
+                                                {{ $character->item_level }} {{ $character->class->toFriendly() }}
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <b>{{ $character->in_game_name }}</b><br />
-                                        <span>{{ $character->item_level }} {{ $character->class->toFriendly() }}</span>
-                                    </div>
+                                    <livewire:event-groups.group-assignment key="{{ $character->id }}"
+                                                                            :character="$character"
+                                                                            :occurrence="$occurrence"/>
                                 </div>
-                                <livewire:event-groups.group-assignment key="{{ $character->id }}" :character="$character" :occurrence="$occurrence" />
-                            </div>
-                        </li>
-                    @endforeach
-                </ul>
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
             </div>
         @endforeach
     </div>

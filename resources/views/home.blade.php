@@ -39,7 +39,7 @@
                                 <ul class="list-group">
                                     @foreach($event->occurrences as $occurrence)
                                         <li class="list-group-item  d-flex justify-content-between align-items-center">
-                                            {{ $occurrence->scheduled_datetime->format("D d \a\\t H:i") }}
+                                            {{ $occurrence->scheduled_datetime->format("l jS \a\\t H:i") }}
                                             <signup-component
                                                 :occurrence="{{ json_encode($occurrence) }}"
                                                 :registered="{{ Auth::user()->isSignedUp($occurrence) ? "true" : "false" }}" />
