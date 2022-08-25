@@ -40,6 +40,7 @@ class EventGroupController extends Controller
         $group->forceFill([
             "event_occurrence_id" => $occurrence->id,
             "group_name" => $request->get("group_name"),
+            "discord_role_id" => $request->get("discord_role_id"),
         ]);
 
         $group->save();
@@ -63,24 +64,35 @@ class EventGroupController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\EventGroup $eventGroup
+     * @param \App\Models\EventGroup $group
      * @return \Illuminate\Http\Response
      */
-    public function edit(EventGroup $eventGroup)
+    public function edit(EventOccurrence $occurrence, EventGroup $group)
     {
-        //
+        return view('events.occurrences.event-groups.edit', [
+            "group" => $group,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param \App\Http\Requests\UpdateEventGroupRequest $request
-     * @param \App\Models\EventGroup $eventGroup
+     * @param \App\Models\EventGroup $group
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateEventGroupRequest $request, EventGroup $eventGroup)
+    public function update(UpdateEventGroupRequest $request, EventOccurrence $occurrence, EventGroup $group)
     {
-        //
+        $group->forceFill([
+            "group_name" => $request->get("group_name"),
+            "discord_role_id" => $request->get("discord_role_id"),
+        ]);
+
+        $group->save();
+
+        session()->flash('status','Event group has been edited');
+
+        return redirect(route('occurrences.groups.index', $occurrence));
     }
 
     /**

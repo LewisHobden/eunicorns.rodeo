@@ -13,7 +13,7 @@ class UpdateEventGroupRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return $this->user()->can('manage-discord');
     }
 
     /**
@@ -24,7 +24,8 @@ class UpdateEventGroupRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'group_name' => 'required',
+            'discord_role_id' => 'nullable|numeric'
         ];
     }
 }

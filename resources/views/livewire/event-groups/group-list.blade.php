@@ -3,7 +3,10 @@
     <div class="d-grid" style="grid-template-columns: 33% 33% 33%">
         @foreach($groups as $group)
             <div class="card">
-                <div class="card-header">{{ $group->group_name }}</div>
+                <div class="card-header">
+                    {{ $group->group_name }}
+                    <a href="{{ route('occurrences.groups.edit', [$group->occurrence, $group]) }}">Edit</a>
+                </div>
                 <ul class="list-group">
                     @foreach($group->slots() as $slot)
                         @if(null === $slot)

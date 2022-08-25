@@ -5,13 +5,14 @@
         <div class="row justify-content-center">
             <div class="content">
                 <div class="card">
-                    <div class="card-header">{{ __('New Raid Group') }}</div>
+                    <div class="card-header">{{ __('Edit Raid Group') }}</div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route("occurrences.groups.store", $occurrence) }}">
+                        <form method="POST" action="{{ route("occurrences.groups.update", [$group->occurrence, $group]) }}">
                             @csrf
+                            @method('PUT')
 
-                            <x-forms.input property="group_name" type="text" label="Group Name"/>
-                            <x-forms.input property="discord_role_id" type="text" label="Discord Role ID"/>
+                            <x-forms.input :value="$group->group_name" property="group_name" type="text" label="Group Name"/>
+                            <x-forms.input :value="$group->discord_role_id" property="discord_role_id" type="text" label="Discord Role ID"/>
                             <p>You can get the role ID using Discord developer tools. Right click a role -> Copy ID</p>
 
                             <div class="form-group">

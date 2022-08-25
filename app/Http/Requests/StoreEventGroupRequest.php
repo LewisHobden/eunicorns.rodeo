@@ -24,7 +24,8 @@ class StoreEventGroupRequest extends FormRequest
     public function rules()
     {
         return [
-            'group_name' => 'required'
+            'group_name' => 'required',
+            'discord_role_id' => 'nullable|numeric'
         ];
     }
 }
