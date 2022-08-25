@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\EventGroupMember;
 use App\Models\EventOccurrence;
 use App\Models\EventSignup;
 use Carbon\Carbon;
@@ -64,8 +65,12 @@ class EventOccurrenceController extends Controller
         ->first();
 
         if(!is_null($existing_signup)) {
-            $existing_signup->delete();
+            EventGroupMember::query()
+                ->whereIn('event_group_id',$occurrence->groups->map(fn($group) => $group->id))
+                ->whereIn('character_id', Auth::user()->characters->map(fn($character) => $character->id))
+                ->delete();
 
+            $existing_signup->delete();
             return response()->json([
                 "is_signed_up" => false
             ]);
