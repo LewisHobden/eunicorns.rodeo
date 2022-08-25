@@ -80,7 +80,6 @@ class CharacterController extends Controller
     public function update(UpdateCharacterRequest $request, Character $character)
     {
         $character->fill([
-            "in_game_name" => $request->get("in_game_name"),
             "item_level" => $request->get("item_level"),
         ])
         ->save();
