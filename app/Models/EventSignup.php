@@ -23,13 +23,14 @@ class EventSignup extends Model
                 '>=',
                 $this->occurrence->event->item_level
             )
+            ->sortByDesc('item_level')
         );
     }
 
     public function otherSignups(): Attribute
     {
         if(null === $this->occurrence)
-            return Attribute::make(get: fn() => $this->user->signups->whereIn('event_occurrence_id', $occurrences));
+            return Attribute::make(get: fn() => null);
 
         $occurrences = EventOccurrence::query()
             ->select(['id'])

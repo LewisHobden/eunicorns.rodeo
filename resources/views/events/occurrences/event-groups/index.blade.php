@@ -12,6 +12,7 @@
                                 Group</a></p>
 
                         <x-event-groups.group-detail :event="$occurrence->event" />
+                        <p>This event is scheduled for {{ $occurrence->scheduled_datetime->format("l jS \a\\t H:i") }}</p>
                     </div>
                 </div>
                 <hr />
