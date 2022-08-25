@@ -10,7 +10,6 @@
                         <x-session-message />
 
                         <x-event-groups.group-detail :event="$event" />
-
                     </div>
                     <div class="card-body">
                         <a href="{{ route('events.edit', $event) }}" class="card-link">Edit Event</a>
